@@ -49,7 +49,7 @@ int main(){
 
 	printArray(a,size);
 	
-	//free(a);
+	free(a);
 
 
 
