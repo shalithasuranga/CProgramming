@@ -6,6 +6,8 @@
 
 **Test Results**
 
+![enter image description here](https://raw.githubusercontent.com/shalithasuranga/CProgramming/master/Matrix/ResultGraph.jpeg)
+
 
 ROUND 0 N=100, T(avg)=0.00450000 secs
 
@@ -32,4 +34,5 @@ ROUND 10 N=2100, T(avg)=129.08250000 secs
 ROUND 11 N=2300, T(avg)=178.81000000 secs
 
 ROUND 12 N=2500, T(avg)=218.30050000 secs
+
 
