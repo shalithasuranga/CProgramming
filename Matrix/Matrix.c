@@ -15,7 +15,8 @@ int **B;
 int **C;
 int N;
 double runtime=0;
-int sizes[]= {10,100,300,500,700,900,1100};
+int sizes[]= {100,300,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500};
+//int sizes[]= {2,4,800};
 
 void freeMemory(){
 	for(int i=0; i<N; i++){
@@ -84,26 +85,26 @@ int ** showMatrix(int ** S){
 	}
 }
 
-void saveMatrices(){
+void saveMatrices(int exTime){
 	char filename[100];
-	sprintf(filename,"output/file%d.txt",N);
+	sprintf(filename,"output/file%d-%d.txt",N,exTime);
 	FILE *f=fopen(filename,"w");
 	if(f!=NULL){
-		fprintf(f, "%INPUT A\n");
+		fprintf(f, "INPUT A\n");
 		for(int i=0; i<N; i++){
 			for(int j=0; j<N; j++){
 				fprintf(f,"%d ",*(*(A+i)+j));
 			}
 			fprintf(f,"\n");
 		}
-		fprintf(f, "%INPUT B\n");
+		fprintf(f, "INPUT B \n");
 		for(int i=0; i<N; i++){
 			for(int j=0; j<N; j++){
 				fprintf(f,"%d ",*(*(B+i)+j));
 			}
 			fprintf(f,"\n");
 		}
-		fprintf(f, "%OUTPUT C\n");
+		fprintf(f, "OUTPUT C\n");
 		for(int i=0; i<N; i++){
 			for(int j=0; j<N; j++){
 				fprintf(f,"%d ",*(*(C+i)+j));
@@ -117,15 +118,28 @@ void saveMatrices(){
 int main(){
 	srand(time(NULL));
 
+	int exTimes=2;
+	double runtimeForSession=0.0f;
+	double avgRuntime=0.0f;
+
 
 	for(int i=0 ;i<sizeof(sizes)/sizeof(int); i++){
-		printf("N=%d\n", sizes[i]);
-		setupMatrices(sizes[i]);
-		multiplication();
-		printf("Runtime : %0.8llf secs\n",runtime);
-		saveMatrices();
+		runtimeForSession=0.0f;
+		for(int rt=0; rt<exTimes; rt++){
+			//printf("N=%d ", sizes[i]);
+			setupMatrices(sizes[i]);
+			multiplication();
+			runtimeForSession+=runtime;
+			//printf("T : %0.8llf secs\n",runtime);
+			//saveMatrices(rt);
+			freeMemory();
+			
+		}
+		avgRuntime=runtimeForSession/exTimes;
+		printf("ROUND #%d N=%d, T(avg)=%0.8llf secs\n",i,sizes[i],avgRuntime);
+
 	}
-	freeMemory();
+	
 
 	return 0;
 }
